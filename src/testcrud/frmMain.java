@@ -281,15 +281,7 @@ public class frmMain extends javax.swing.JFrame {
             new String [] {
                 "NIS", "NamaSiswa", "JenisKelamin", "Kelas", "Email", "Alamat", "TempatLahir", "TanggalLahir"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        ));
         tblData.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblDataMouseClicked(evt);
@@ -370,8 +362,8 @@ else  {
             
 if (rdPerempuan.isSelected())
  JK = "P";
-         if(txtNIS.getText().equals("")|| txtNama1.getText().equals("") || JK.equals("")||txtKelas.equals("") ||txtEmail.getText().equals("")|| txtAlamat.getText().equals("")||txttempat.getText().equals("")||tanggal.equals("")){
-        JOptionPane.showMessageDialog(this, "Harap Lengkapi Data", "Error", JOptionPane.WARNING_MESSAGE);
+         if("".equals(txtNIS.getText())|| "".equals(txtNama1.getText()) || "".equals(txtKelas.getText()) ||"".equals(txtEmail.getText())|| "".equals(txtAlamat.getText())||"".equals(txttempat.getText())){
+    JOptionPane.showMessageDialog(this, "Harap Lengkapi Data", "Error", JOptionPane.WARNING_MESSAGE);
     } else {
    
             String SQL = "UPDATE t_siswa SET" +"WHERE NIS='"+txtNIS.getText()
@@ -408,7 +400,7 @@ if (rdPerempuan.isSelected())
     if (rdPerempuan.isSelected())
     JK = "P";
            
-        if(txtNIS.getText().equals("")|| txtNama1.getText().equals("") || JK.equals("")||txtKelas.equals("") ||txtEmail.getText().equals("")|| txtAlamat.getText().equals("")||txttempat.getText().equals("")||tanggal.equals("")){
+        if("".equals(txtNIS.getText())|| "".equals(txtNama1.getText()) || "".equals(txtKelas.getText()) ||"".equals(txtEmail.getText())|| "".equals(txtAlamat.getText())||"".equals(txttempat.getText())){
         JOptionPane.showMessageDialog(this, "Harap Lengkapi Data", "Error", JOptionPane.WARNING_MESSAGE);
    } else {
             String SQL = "INSERT INTO t_siswa (NIS,NamaSiswa,JenisKelamin,Kelas,Email,Alamat,TempatLahir,TanggalLahir)"
@@ -462,8 +454,6 @@ if (rdPerempuan.isSelected())
         DefaultTableModel dtm = new DefaultTableModel(null,kolom);        //To change body of generated methods, choose Tools | Templates.
         String SQL = "SELECT * FROM t_siswa";
         ResultSet rs = KoneksiDB.executeQuery(SQL);
-      
-        
         
   
         try {
@@ -481,7 +471,7 @@ if (rdPerempuan.isSelected())
                 String Email = rs.getString(5);
                 String Alamat = rs.getString(6);
                 String TempatLahir = rs.getString(7);
-                Date TanggalLahir = rs.getDate(8);
+                String TanggalLahir = rs.getString(8);
                Object data[] = {NIS,NamaSiswa,JenisKelamin,Kelas,Email,Alamat,TempatLahir,TanggalLahir};
                 
                 dtm.addRow(data);
@@ -522,12 +512,12 @@ if (rdPerempuan.isSelected())
     if(baris != -1){
         txtNIS.setText(tblData.getValueAt(baris, 0).toString());
          txtNama1.setText(tblData.getValueAt(baris, 1).toString());
-          txttempat.setText(tblData.getValueAt(baris, 2).toString());
+          txttempat.setText(tblData.getValueAt(baris, 6).toString());
           SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
           Date dateFormat = null;
           try{
             try { 
-                dateFormat = date.parse(tblData.getValueAt(baris, 3).toString());
+                dateFormat = date.parse(tblData.getValueAt(baris, 7).toString());
             } catch (java.text.ParseException ex) {
                 Logger.getLogger(frmMain.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -537,14 +527,14 @@ if (rdPerempuan.isSelected())
               
           }
           tgl.setDate(dateFormat);
-          String JKL = tblData.getValueAt(baris, 4).toString();
+          String JKL = tblData.getValueAt(baris, 2).toString();
           if(JKL.equals("Laki-Laki"))
               rdLaki.setSelected(true);
           else
               rdPerempuan.setSelected(true);
-             txtKelas.setText(tblData.getValueAt(baris, 5).toString());
-         txtEmail.setText(tblData.getValueAt(baris, 6).toString());
-         txtAlamat.setText(tblData.getValueAt(baris, 7).toString());
+             txtKelas.setText(tblData.getValueAt(baris, 3).toString());
+         txtEmail.setText(tblData.getValueAt(baris, 4).toString());
+         txtAlamat.setText(tblData.getValueAt(baris, 5).toString());
       
     } // TODO add your handling code here:
     }//GEN-LAST:event_tblDataMouseClicked
